@@ -1,0 +1,9 @@
+.text-title {
+    font-size: 0.9rem;
+}
+
+.nows-anime-img {
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+}

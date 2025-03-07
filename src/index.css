@@ -1,0 +1,18 @@
+body {
+  font-family: "Ubuntu", serif !important;
+  font-weight: 400;
+  font-style: normal;
+  
+}
+[data-bs-theme="dark"] {
+  --bs-body-bg: #111111 !important; /* Устанавливаем фоновый цвет */
+  --bs-body-color: #e8eaed !important; /* Устанавливаем цвет текста */
+}
+
+/* Дополнительное переопределение для классов Bootstrap */
+.bg-dark {
+  background-color: #111111 !important;
+}
+button {
+  --bs-btn-border-width: none !important; /* Устанавливаем ширину границы в 0 */
+}

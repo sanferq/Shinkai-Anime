@@ -1,0 +1,102 @@
+/* AnimeDetails.css */
+
+  
+.anime-header {
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .row-cont {
+    display: grid;
+  grid-template-columns: 1fr 2fr; /* Изображение занимает 1 часть, текст — 2 части */
+  gap: 20px; /* Отступ между изображением и текстом */
+  align-items: center; /* Вертикальное выравнивание */
+  margin-bottom: 25px;
+  }
+
+  @media screen and (min-width:200px) and (max-width:1000px) {
+
+    .row-cont {
+        display: flex;
+        flex-direction: column;
+
+    }
+}
+  
+  .anime-header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .anime-image {
+    display: block;
+    width: 350px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .anime-description {
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(120deg, rgb(48 47 141 / 30%), rgb(101 84 84 / 20%));
+    padding: 30px;
+    border-radius: 20px;
+
+  }
+  
+  .anime-info {
+    display: inline-block;
+
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(120deg, rgb(48 47 141 / 30%), rgb(101 84 84 / 20%));
+    padding: 30px;
+    border-radius: 20px;
+  }
+  
+  .anime-info p {
+    font-size: 1rem;
+
+  }
+  
+  .anime-info strong {
+    font-weight: bold;
+
+  }
+  
+  .character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .character-item {
+    text-align: center;
+  }
+  
+  .character-item img {
+    width: auto;
+    height: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .character-item p {
+    margin-top: 5px;
+    font-size: 0.9rem;
+
+  }
+  
+

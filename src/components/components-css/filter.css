@@ -1,14 +1,13 @@
-/* Анимация для показа/скрытия жанров */
 .genres-list {
-    max-height: 0; /* Начальная высота равна 0 */
-    overflow: hidden; /* Скрываем содержимое за пределами блока */
-    transition: max-height 0.2s ease-in-out; /* Плавное изменение высоты */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in-out;
 }
 
 .genres-list.open {
-    max-height: 1700px; /* Максимальная высота, чтобы показать все жанры */
+  max-height: 1700px;
 }
 
 .genres-list.closed {
-    max-height: 0; /* Сворачиваем список до нулевой высоты */
+  max-height: 0;
 }

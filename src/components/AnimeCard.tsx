@@ -1,16 +1,15 @@
 import { Link } from "react-router-dom";
-import { useInView } from "react-intersection-observer"; 
+import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
-import '../index.css'
-import './components-css/animeCard.css'
-
+import "../index.css";
+import "./components-css/animeCard.css";
 
 interface Anime {
   mal_id: number;
   title: string;
   images: { jpg: { image_url: string } };
-  aired?: { from: string | null }; 
-  type?: string; 
+  aired?: { from: string | null };
+  type?: string;
 }
 
 interface AnimeCardProps {
@@ -28,18 +27,27 @@ function AnimeCard({ animeList, loading }: AnimeCardProps) {
       ) : (
         animeList.map((anime) => (
           <div key={anime.mal_id} className="col-md-4 mb-4">
-            <Link to={`/anime/${anime.mal_id}`} className="text-decoration-none">
+            <Link
+              to={`/anime/${anime.mal_id}`}
+              className="text-decoration-none"
+            >
               <div className="card card-visual">
-                <LazyImage src={anime.images.jpg.image_url || "/default-anime.jpg"} alt={anime.title} />
+                <LazyImage
+                  src={anime.images.jpg.image_url || "/default-anime.jpg"}
+                  alt={anime.title}
+                />
                 <div className="card-body">
                   <h5 className="card-title text-truncate">{anime.title}</h5>
                   {anime.aired?.from && (
                     <p className="card-text">
                       Release date:{" "}
-                      {new Date(anime.aired.from).toLocaleDateString() || "Неизвестно"}
+                      {new Date(anime.aired.from).toLocaleDateString() ||
+                        "Неизвестно"}
                     </p>
                   )}
-                  {anime.type && <p className="card-text">Type: {anime.type}</p>}
+                  {anime.type && (
+                    <p className="card-text">Type: {anime.type}</p>
+                  )}
                 </div>
               </div>
             </Link>
@@ -50,20 +58,18 @@ function AnimeCard({ animeList, loading }: AnimeCardProps) {
   );
 }
 
-
 function LazyImage({ src, alt }: { src: string; alt: string }) {
-  const [ref, inView] = useInView({ threshold: 0.1 }); 
-  const [showImage, setShowImage] = useState(false); 
+  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
     if (inView) {
-      setShowImage(true); 
+      setShowImage(true);
     }
   }, [inView]);
 
   return (
     <div ref={ref}>
-
       {!showImage && (
         <div className="card-img">
           <span className="spinner-border" role="status">
@@ -72,11 +78,7 @@ function LazyImage({ src, alt }: { src: string; alt: string }) {
         </div>
       )}
       {showImage && (
-        <img 
-          src={src}
-          alt={alt}
-          className="card-img-top card-img"
-        />
+        <img src={src} alt={alt} className="card-img-top card-img" />
       )}
     </div>
   );

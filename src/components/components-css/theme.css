@@ -1,6 +1,5 @@
 .custom-dark {
-    /* background-color: #111111 !important; */
-    color: #e8eaed !important;
-    z-index: 1;
-    background-color: transparent;
-  }
+  color: #e8eaed !important;
+  z-index: 1;
+  background-color: transparent;
+}

@@ -3,8 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import { useInView } from "react-intersection-observer"; 
-import './components-css/nowAiring.css'
+import { useInView } from "react-intersection-observer";
+import "./components-css/nowAiring.css";
 
 interface Anime {
   mal_id: number;
@@ -12,7 +12,6 @@ interface Anime {
   images: { jpg: { image_url: string } };
 }
 
-// Функция для задержки между запросами
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -25,7 +24,7 @@ function NowAiring() {
     async function fetchNowAiring() {
       const cachedData = localStorage.getItem("animeList");
       if (cachedData) {
-        setAnimeList(JSON.parse(cachedData)); 
+        setAnimeList(JSON.parse(cachedData));
         setLoading(false);
         return;
       }
@@ -36,8 +35,8 @@ function NowAiring() {
 
         if (response.status === 429) {
           console.error("Слишком много запросов, пробуем снова...");
-          await delay(1000); 
-          response = await fetch("https://api.jikan.moe/v4/seasons/now"); // Повторяем запрос
+          await delay(1000);
+          response = await fetch("https://api.jikan.moe/v4/seasons/now");
         }
 
         if (!response.ok) {
@@ -45,7 +44,7 @@ function NowAiring() {
         }
 
         const data = await response.json();
-        console.log(data); 
+        console.log(data);
         setAnimeList(data.data || []);
         localStorage.setItem("animeList", JSON.stringify(data.data));
       } catch (error) {
@@ -85,17 +84,14 @@ function NowAiring() {
       ) : (
         <Slider {...settings}>
           {animeList.map((anime) => (
-            <div
-              key={anime.mal_id}
-              className="card ml-2" 
-            >
-              <Link to={`/anime/${anime.mal_id}`} className="text-decoration-none text-reset">
-                {/* Ленивая загрузка изображения */}
+            <div key={anime.mal_id} className="card ml-2">
+              <Link
+                to={`/anime/${anime.mal_id}`}
+                className="text-decoration-none text-reset"
+              >
                 <LazyImage src={anime.images.jpg.image_url} alt={anime.title} />
                 <div className="card-body">
-                  <h5
-                    className="card-title text-truncate card-text text-title"
-                  >
+                  <h5 className="card-title text-truncate card-text text-title">
                     {anime.title}
                   </h5>
                 </div>
@@ -108,34 +104,27 @@ function NowAiring() {
   );
 }
 
-
 function LazyImage({ src, alt }: { src: string; alt: string }) {
-  const [ref, inView] = useInView({ threshold: 0.5 }); 
-  const [showImage, setShowImage] = useState(false); 
+  const [ref, inView] = useInView({ threshold: 0.5 });
+  const [showImage, setShowImage] = useState(false);
 
   useEffect(() => {
     if (inView) {
-      setShowImage(true); 
+      setShowImage(true);
     }
   }, [inView]);
 
   return (
-    <div ref={ref} >
+    <div ref={ref}>
       {!showImage && (
-        <div
-
-        >
+        <div>
           <span className="spinner-border" role="status">
             <span className="visually-hidden">Загрузка...</span>
           </span>
         </div>
       )}
       {showImage && (
-        <img
-          src={src}
-          alt={alt}
-          className="card-img-top nows-anime-img"
-        />
+        <img src={src} alt={alt} className="card-img-top nows-anime-img" />
       )}
     </div>
   );

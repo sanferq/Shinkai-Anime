@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Dropdown } from "react-bootstrap";
 
-
-// Типы данных
 type Character = {
   id: number;
   name: string;
@@ -54,7 +52,7 @@ type RandomAnime = {
 function RandomAnime() {
   const [anime, setAnime] = useState<RandomAnime | null>(null);
   const [loading, setLoading] = useState(true);
-  const [status, setStatus] = useState<string>("Добавить в список"); // Состояние для статуса
+  const [status, setStatus] = useState<string>("Добавить в список");
 
   const storageKeys = {
     planned: "plannedAnime",
@@ -63,10 +61,11 @@ function RandomAnime() {
     dropped: "droppedAnime",
   };
 
-  // Функция для загрузки случайного аниме
   async function fetchRandomAnime(): Promise<RandomAnime | null> {
     try {
-      const animeResponse = await fetch("https://api.jikan.moe/v4/random/anime");
+      const animeResponse = await fetch(
+        "https://api.jikan.moe/v4/random/anime"
+      );
       const animeData: { data: AnimeData } = await animeResponse.json();
 
       if (!animeData.data || !animeData.data.mal_id) {
@@ -93,7 +92,9 @@ function RandomAnime() {
         episodes: animeData.data.episodes,
         type: animeData.data.type,
         duration: animeData.data.duration,
-        studios: animeData.data.studios.map((studio: Studio) => studio.name).join(", "),
+        studios: animeData.data.studios
+          .map((studio: Studio) => studio.name)
+          .join(", "),
         genres: animeData.data.genres.map((genre: Genre) => genre.name),
         malUrl: animeData.data.url,
 
@@ -101,11 +102,15 @@ function RandomAnime() {
           ? charactersData.data.slice(0, 6).map((char: any) => ({
               id: char.character.mal_id,
               name: char.character.name,
-              image: char.character.images?.jpg?.image_url || "/default-character.jpg",
+              image:
+                char.character.images?.jpg?.image_url ||
+                "/default-character.jpg",
             }))
           : [],
         screenshots: screenshotsData.data
-          ? screenshotsData.data.map((pic: any) => pic.jpg.image_url).slice(0, 6)
+          ? screenshotsData.data
+              .map((pic: any) => pic.jpg.image_url)
+              .slice(0, 6)
           : [],
       };
     } catch (error) {
@@ -123,7 +128,6 @@ function RandomAnime() {
     loadAnime();
   }, []);
 
-  // Функция добавления в список и обновления статуса
   const addToList = (category: keyof typeof storageKeys) => {
     if (!anime) return;
     const storageKey = storageKeys[category];
@@ -154,8 +158,11 @@ function RandomAnime() {
     for (const key in storageKeys) {
       if (key !== category) {
         let otherList: RandomAnime[] =
-          JSON.parse(localStorage.getItem(storageKeys[key as keyof typeof storageKeys]) || "[]") ||
-          [];
+          JSON.parse(
+            localStorage.getItem(
+              storageKeys[key as keyof typeof storageKeys]
+            ) || "[]"
+          ) || [];
         localStorage.setItem(
           storageKeys[key as keyof typeof storageKeys],
           JSON.stringify(otherList.filter((item) => item.id !== anime.id))
@@ -163,7 +170,6 @@ function RandomAnime() {
       }
     }
 
-    // Обновляем текст статуса
     switch (category) {
       case "planned":
         setStatus("📌 Planned");
@@ -195,7 +201,9 @@ function RandomAnime() {
     return (
       <div>
         <p>Аниме не найдено.</p>
-        <button onClick={() => window.location.reload()}>Попробовать снова</button>
+        <button onClick={() => window.location.reload()}>
+          Попробовать снова
+        </button>
       </div>
     );
   }
@@ -228,11 +236,11 @@ function RandomAnime() {
           <strong>Студия:</strong> {anime.studios || "Неизвестно"}
         </p>
         <p>
-          <strong>Жанры:</strong> {anime.genres.length > 0 ? anime.genres.join(", ") : "Не указаны"}
+          <strong>Жанры:</strong>{" "}
+          {anime.genres.length > 0 ? anime.genres.join(", ") : "Не указаны"}
         </p>
       </div>
 
-      {/* Dropdown для изменения статуса */}
       <Dropdown className="mt-3">
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
           {status}

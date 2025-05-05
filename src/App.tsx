@@ -4,7 +4,7 @@ import Search from "./pages/Search";
 import AnimeDetails from "./pages/AnimeDetails";
 import Planned from "./pages/Planned";
 import AppNavbar from "./components/Navbar";
-import RandomAnime from './pages/RandomAnime'
+import RandomAnime from "./pages/RandomAnime";
 import ThemeToggle from "./components/ThemeToggle";
 import NowAiring from "./components/NowAiring";
 
@@ -12,10 +12,9 @@ function App() {
   return (
     <>
       {" "}
-      <AppNavbar/>
+      <AppNavbar />
       <ThemeToggle />
       <Routes>
-      
         <Route path="/" element={<Home />} />
         <Route path="/" element={<NowAiring />} />
         <Route path="/random" element={<RandomAnime />} />
@@ -23,7 +22,6 @@ function App() {
         <Route path="/Planned" element={<Planned />} />
         <Route path="/Anime/:id" element={<AnimeDetails />} />
       </Routes>
-
     </>
   );
 }

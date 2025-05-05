@@ -7,14 +7,13 @@ import "./components-css/theme.css";
 function ThemeToggle() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     const savedTheme = getSavedTheme();
-    return savedTheme === "dark" ? true : true; 
+    return savedTheme === "dark" ? true : true;
   });
 
-  // Функция для переключения темы
   const toggleTheme = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
-    saveTheme(newMode ? "dark" : "light"); 
+    saveTheme(newMode ? "dark" : "light");
   };
 
   useEffect(() => {

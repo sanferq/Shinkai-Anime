@@ -15,7 +15,6 @@ function Planned() {
   const [completed, setCompleted] = useState<Anime[]>([]);
   const [dropped, setDropped] = useState<Anime[]>([]);
 
-  // Загрузка данных из localStorage
   useEffect(() => {
     setPlanned(JSON.parse(localStorage.getItem("plannedAnime") || "[]"));
     setWatching(JSON.parse(localStorage.getItem("watchingAnime") || "[]"));
@@ -23,7 +22,6 @@ function Planned() {
     setDropped(JSON.parse(localStorage.getItem("droppedAnime") || "[]"));
   }, []);
 
-  // Удаление аниме из категории
   const removeAnime = (category: string, id: number) => {
     let updatedList: Anime[] = [];
     switch (category) {
@@ -56,11 +54,11 @@ function Planned() {
   const [activeTab, setActiveTab] = useState<string>("completed");
 
   useEffect(() => {
-    const tabFromUrl = new URLSearchParams(location.search).get("tab") || "completed";
+    const tabFromUrl =
+      new URLSearchParams(location.search).get("tab") || "completed";
     setActiveTab(tabFromUrl);
   }, [location]);
 
-  // Функция для рендера категории
   const renderCategory = (title: string, list: Anime[], category: string) => (
     <div>
       <h2 className="text-center">{title}</h2>
@@ -103,9 +101,11 @@ function Planned() {
   return (
     <Container>
       <h1 className="text-center mb-4">My anime list</h1>
-
-      {/* Вкладки */}
-      <Nav variant="tabs" activeKey={activeTab} onSelect={(key) => setActiveTab(key || "completed")}>
+      <Nav
+        variant="tabs"
+        activeKey={activeTab}
+        onSelect={(key) => setActiveTab(key || "completed")}
+      >
         <Nav.Item>
           <Nav.Link eventKey="planned">Planned</Nav.Link>
         </Nav.Item>
@@ -120,17 +120,25 @@ function Planned() {
         </Nav.Item>
       </Nav>
 
-      {/* Содержимое вкладок */}
-      <Tab.Container activeKey={activeTab} onSelect={(key) => setActiveTab(key || "completed")}>
+      <Tab.Container
+        activeKey={activeTab}
+        onSelect={(key) => setActiveTab(key || "completed")}
+      >
         <Row>
           <Col>
             <Tab.Content>
-              <Tab.Pane eventKey="planned">{renderCategory("Planned", planned, "planned")}</Tab.Pane>
-              <Tab.Pane eventKey="watching">{renderCategory("Watching", watching, "watching")}</Tab.Pane>
+              <Tab.Pane eventKey="planned">
+                {renderCategory("Planned", planned, "planned")}
+              </Tab.Pane>
+              <Tab.Pane eventKey="watching">
+                {renderCategory("Watching", watching, "watching")}
+              </Tab.Pane>
               <Tab.Pane eventKey="completed">
                 {renderCategory("Completed", completed, "completed")}
               </Tab.Pane>
-              <Tab.Pane eventKey="dropped">{renderCategory("Dropped", dropped, "dropped")}</Tab.Pane>
+              <Tab.Pane eventKey="dropped">
+                {renderCategory("Dropped", dropped, "dropped")}
+              </Tab.Pane>
             </Tab.Content>
           </Col>
         </Row>
